@@ -39,8 +39,7 @@
       "app"
     ],
     "macOS": {
-      "minimumSystemVersion": "13.0",
-      "signingIdentity": "Apple Development"
+      "minimumSystemVersion": "13.0"
     },
     "icon": [
       "icons/32x32.png",

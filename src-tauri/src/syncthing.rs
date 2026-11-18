@@ -627,8 +627,8 @@ mod tests {
         assert_eq!(f.len(), 1);
         assert_eq!(f[0].label, "旧名字");
         assert_eq!(f[0].offered_by, vec!["AAA".to_string(), "BBB".to_string()]);
-        let devices = json!({ "CCC": { "time": "2026-11-16T10:00:00Z", "name": "eating-m5", "address": "relay://x" } });
-        assert_eq!(parse_pending_devices(&devices)[0].name, "eating-m5");
+        let devices = json!({ "CCC": { "time": "2026-11-16T10:00:00Z", "name": "office-m5", "address": "relay://x" } });
+        assert_eq!(parse_pending_devices(&devices)[0].name, "office-m5");
         assert!(parse_pending_folders(&Value::Null).is_empty());
     }
     #[test]

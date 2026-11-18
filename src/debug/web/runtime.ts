@@ -149,7 +149,7 @@ export function sampleSyncthing(): Syncthing {
       },
       {
         id: M5,
-        name: 'eating-m5',
+        name: 'office-m5',
         me: false,
         connected: true,
         paused: false,
@@ -161,7 +161,7 @@ export function sampleSyncthing(): Syncthing {
       },
       {
         id: M3,
-        name: 'eating-m3',
+        name: 'office-m3',
         me: false,
         connected: false,
         paused: false,
@@ -268,11 +268,11 @@ export class WebRuntime {
         retryAt: null,
         announced: true,
       },
-      // eating-m5 是经频道配对的，用它自己的 FoxSync 头像；eating-m3 是手动配对的
+      // office-m5 是经频道配对的，用它自己的 FoxSync 头像；office-m3 是手动配对的
       peers: [
         {
           id: 'webm5fox0001',
-          name: 'eating-m5',
+          name: 'office-m5',
           avatar: 'notionists',
           syncthingId: M5,
           seen: Math.floor(Date.now() / 1000) - 60,
@@ -392,7 +392,7 @@ export class WebRuntime {
           '设计部 iMac',
           '前台',
           '会议室',
-          'tobe-mini',
+          'mac-mini',
           '小王的 MBP',
           '渲染机',
           'NAS',
@@ -515,7 +515,7 @@ export class WebRuntime {
         s.pendingDevices = [
           {
             id: MINI,
-            name: 'tobe-mini',
+            name: 'mac-mini',
             address: '192.168.1.23:22000',
             time: ago(3),
           },
@@ -524,7 +524,7 @@ export class WebRuntime {
         s.ignoredDevices = [
           {
             id: MINI,
-            name: 'tobe-mini',
+            name: 'mac-mini',
             address: '192.168.1.23:22000',
             time: ago(60 * 26),
           },
@@ -535,7 +535,7 @@ export class WebRuntime {
           ...this.state.peers,
           {
             id: 'webminifox01',
-            name: 'tobe-mini',
+            name: 'mac-mini',
             avatar: 'thumbs',
             syncthingId: MINI,
             seen: Math.floor(Date.now() / 1000) - 600,

@@ -5,10 +5,10 @@
   "type": "module",
   "packageManager": "pnpm@10.32.1",
   "scripts": {
-    "dev": "node scripts/syncthing-bin.mjs && node scripts/with-env.mjs tauri dev -- --config 'source.crates-io.replace-with=\"rsproxy-sparse\"' --config 'source.rsproxy-sparse.registry=\"sparse+https://rsproxy.cn/index/\"'",
+    "dev": "node scripts/syncthing-bin.mjs && node scripts/tauri.mjs dev",
     "dev:web": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
-    "build:desktop": "node scripts/syncthing-bin.mjs && node scripts/with-env.mjs tauri build --bundles app -- --config 'source.crates-io.replace-with=\"rsproxy-sparse\"' --config 'source.rsproxy-sparse.registry=\"sparse+https://rsproxy.cn/index/\"' && node scripts/check-bundle.mjs",
+    "build:desktop": "node scripts/syncthing-bin.mjs && node scripts/tauri.mjs build --bundles app && node scripts/check-bundle.mjs",
     "typecheck": "tsc --noEmit",
     "types": "cargo test --manifest-path src-tauri/Cargo.toml export_bindings",
     "test": "cargo test --manifest-path src-tauri/Cargo.toml && node --test tests/*.test.ts",
@@ -20,7 +20,7 @@
     "env:seal": "scripts/env.sh seal",
     "env:open": "scripts/env.sh open",
     "env:check": "scripts/env.sh check",
-    "build:debug-app": "node scripts/syncthing-bin.mjs && node scripts/with-env.mjs tauri build --debug --bundles app -- --config 'source.crates-io.replace-with=\"rsproxy-sparse\"' --config 'source.rsproxy-sparse.registry=\"sparse+https://rsproxy.cn/index/\"' && open src-tauri/target/debug/bundle/macos/FoxSync.app",
+    "build:debug-app": "node scripts/syncthing-bin.mjs && node scripts/tauri.mjs build --debug --bundles app && open src-tauri/target/debug/bundle/macos/FoxSync.app",
     "syncthing:bin": "node scripts/syncthing-bin.mjs"
   },
   "dependencies": {
