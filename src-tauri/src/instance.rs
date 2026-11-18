@@ -17,8 +17,14 @@ fn running(pid: u32, exe: &str) -> bool {
     Command::new("ps")
         .args(["-p", &pid.to_string(), "-o", "comm="])
         .output()
-        .map(|out| String::from_utf8_lossy(&out.stdout).trim() == exe)
+        .map(|out| same_program(String::from_utf8_lossy(&out.stdout).trim(), exe))
         .unwrap_or(false)
+}
+
+/// ps 显示的是启动时用的路径：tauri dev 重启时是相对路径 `target/debug/fox-sync`，记录里是绝对路径。
+/// 之前要求完全相等，开发版被当成已经退出，安装版不去顶它，再被单实例插件让自己退出（2026-11-19 踩到）
+fn same_program(shown: &str, exe: &str) -> bool {
+    !shown.is_empty() && (shown == exe || (!shown.starts_with('/') && exe.ends_with(&format!("/{shown}"))))
 }
 
 /// 返回被顶掉的那个程序路径，写日志用
@@ -44,5 +50,19 @@ pub fn take_over() -> Option<String> {
 pub fn claim() {
     if let Err(e) = fs::write(PathBuf::from(FILE), format!("{} {}", std::process::id(), me())) {
         log::warn("main", "instance-claim-failed", json!({ "reason": e.to_string() }));
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::same_program;
+    #[test]
+    fn matches_relative_launch_path() {
+        let exe = "/Users/x/fox-sync/src-tauri/target/debug/fox-sync";
+        assert!(same_program(exe, exe));
+        assert!(same_program("target/debug/fox-sync", exe));
+        assert!(!same_program("debug/other", exe));
+        assert!(!same_program("/Applications/FoxSync.app/Contents/MacOS/fox-sync", exe));
+        assert!(!same_program("", exe));
     }
 }

@@ -98,6 +98,12 @@ fn apply_dock(app: &tauri::AppHandle, window_visible: bool) {
     } else {
         tauri::ActivationPolicy::Accessory
     });
+    // 从菜单栏模式回到 Dock 时，系统按程序包重新取图标；开发版是裸可执行文件没有程序包图标，
+    // 会变成通用的“exec”，要再设一次（2026-11-19 tobe 遇到）。设图标要在主线程
+    #[cfg(all(debug_assertions, target_os = "macos"))]
+    if visible {
+        let _ = app.run_on_main_thread(dev_icon);
+    }
 }
 
 fn apply_theme(app: &tauri::AppHandle, theme: &str) {
