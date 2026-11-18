@@ -1,0 +1,6 @@
+# 可解密的 age 公钥，沿用 okx-test 的两台机器；每台机器只保管自己的 age 私钥
+creation_rules:
+  - path_regex: (^|.*/)secrets/env\.sops\.yaml$
+    age: >-
+      age1gef62gv6a9ewcpu3yfw9ee0ra4q7t9tknnvel7c3m5rj83pfzddshunnlt,
+      age1mqpfa7m8z57u94dymvjyj37qxpya0sjs7evzt6c3ntys4m7p6q8qd4nrj3
